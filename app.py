@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/")
 def index() -> str:
     """Return a simple greeting for the home page."""
-    return "Hello from your Flask app!"
+    return "Hello from your Flask app! - Version 0.1.0"
 
 
 if __name__ == "__main__":  # pragma: no cover
