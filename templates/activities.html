@@ -13,7 +13,7 @@
         {% for activity in activities %}
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <strong>{{ activity.name }}</strong><br>
+              <strong>{{ activity.name }} - {{ activity.start_date_fmt }}</strong><br>
               {{ (activity.distance / 1000)|round(2) }} km – {{ (activity.moving_time // 60) }} min
             </div>
             <span class="badge bg-primary rounded-pill">{{ activity.type }}</span>
