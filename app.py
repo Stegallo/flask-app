@@ -1,6 +1,9 @@
 from flask import Flask, redirect, request, session, url_for, render_template
 import requests
 import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
 
 from dotenv import load_dotenv
 
@@ -62,6 +65,17 @@ def activities():
         return f"Error fetching activities: {response.text}"
 
     data = response.json()
+
+    local_tz = ZoneInfo("America/Los_Angeles")  # pick your timezone
+
+    for activity in data:
+
+        dt = datetime.strptime(activity["start_date"], "%Y-%m-%dT%H:%M:%SZ")
+        dt = dt.replace(tzinfo=ZoneInfo("UTC"))
+
+        # Convert to local timezone
+        dt_local = dt.astimezone(local_tz)
+        activity["start_date_fmt"] = dt_local.strftime("%b %d, %Y %H:%M")
     return render_template("activities.html", activities=data)
 
 if __name__ == "__main__":
